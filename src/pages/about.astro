@@ -1,0 +1,145 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+---
+
+<MainLayout>
+  <main class="main-about">
+    <h1>Qui Som?</h1>
+    <section class="about-section">
+      <h2>La Nostra Història</h2>
+        <p>
+            De ben jove, <strong>Lluís Sayas</strong> va descobrir la seva passió per
+            la lutieria quan va entrar com a aprenent en un prestigiós taller de Barcelona.
+            Allà va aprendre els secrets de l’ofici de la mà d’un mestre luthier, observant
+            com cada instrument prenia vida a través de les seves mans expertes. Aquella
+            experiència li va deixar una empremta profunda, despertant un amor per la
+            restauració i la construcció de violins que mai no l’abandonaria.
+        </p>
+        <p>
+            Tot i que la vida el va portar per altres camins professionals,
+            mai no va deixar enrere la seva connexió amb la lutieria. Al llarg dels
+            anys, va continuar perfeccionant les seves habilitats, treballant en
+            projectes personals i col·laborant en la restauració d’instruments per a
+            músics i col·leccionistes. L’olor de la fusta, el tacte delicat de les
+            vernissos i l’harmonia dels tons sempre el van acompanyar, recordant-li
+            la seva autèntica vocació.
+        </p>
+        <p>
+            Finalment, després d’anys de pràctica i aprenentatge constant, va
+            decidir fer realitat el seu somni i obrir el seu propi taller de
+            restauració a Vacarisses. Amb una dedicació absoluta a la recuperació
+            d’instruments antics, ofereix als músics l’oportunitat de redescobrir la
+            riquesa sonora i l’ànima dels seus violins. Així, el que va començar com
+            una passió de joventut s’ha convertit en una missió de vida: preservar
+            la bellesa i l’essència d’aquests instruments únics.
+        </p>
+    </section>
+
+    <section class="about-section artisan-section">
+      <h2>Lluís Sayas</h2>
+      <div class="artisan-content">
+        <img
+          src="/sayas-1/media/images/user.png"
+          alt="Lluís Sayas - Luthier"
+          class="artisan-image"
+        />
+        <div class="artisan-text">
+          <p>
+            La meva passió per la lutieria va començar de jove, quan vaig tenir l’oportunitat d’aprendre l’ofici com a aprenent en un taller de Barcelona. Tot i que durant anys vaig seguir altres camins, mai no vaig deixar de treballar amb violins, perfeccionant tècniques i aprofundint en l’art de la restauració. Cada instrument té una història, i la meva feina consisteix a respectar-la i donar-li una nova vida.
+          </p>
+          <p>
+            Ara, des del meu taller a Vacarisses, em dedico plenament a la restauració de violins antics. Amb paciència, precisió i respecte pels materials originals, ajudo músics i col·leccionistes a recuperar la sonoritat i la bellesa dels seus instruments. Cada restauració és un diàleg entre el passat i el present, una oportunitat per preservar l’ànima d’un violí per a les generacions futures.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+</MainLayout>
+
+<style>
+  main.main-about {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    background-color: #834504;
+    padding: 40px 15%;
+  }
+  @media (max-width: 768px) {
+    main.main-about {
+      padding: 40px 5%;
+    }
+  }
+  h1 {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    text-align: center;
+    color: #fff;
+  }
+
+  .about-section {
+    background-color: #834504;
+    border-radius: 8px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    max-width: 100%;
+    text-align: justify;
+  }
+
+  .about-section h2 {
+    color: #412202;
+    margin-bottom: 1rem;
+    font-size: 1.8rem;
+  }
+
+  .about-section p {
+    color: ##1a0d00;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+
+  @media (max-width: 768px) {
+    h1 {
+      font-size: 2rem;
+    }
+
+    .about-section {
+      padding: 1.5rem;
+    }
+
+    .about-section h2 {
+      font-size: 1.5rem;
+    }
+  }
+
+  .artisan-section .artisan-content {
+    display: flex;
+    gap: 2rem;
+    align-items: start;
+  }
+
+  .artisan-image {
+    max-width: 300px;
+    height: auto;
+    border-radius: 50%;
+    margin: 20px;
+
+  }
+
+  .artisan-text p {
+    margin-bottom: 1rem;
+  }
+
+  @media (max-width: 768px) {
+    .artisan-section .artisan-content {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .artisan-image {
+      width: 100%;
+      max-width: 300px;
+    }
+  }
+</style>

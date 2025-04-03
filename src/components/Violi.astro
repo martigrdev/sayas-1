@@ -1,0 +1,85 @@
+---
+interface Props {
+  nom: string;
+  fabricacio: string;
+  descripcio: string;
+  imatge: string;
+  estat: string;
+}
+
+const { nom, fabricacio, descripcio, imatge, estat } = Astro.props;
+---
+
+<article class="violin-card">
+  <img src={imatge} alt={nom} class="violin-image" />
+  <div class="violin-info">
+    <h2>{nom}</h2>
+    <div class="info-container">
+        <p class="descripcio">{descripcio}</p>
+        <div class="especificacions">
+            <p class="fabricacio">Fabricació:<strong> {fabricacio} </strong></p>
+            <p class="fabricacio">Estat:<strong> {estat} </strong></p>
+        </div>
+    </div>
+  </div>
+</article>
+
+<style>
+  .violin-card {
+    background-color: #a87c4f;
+    border-radius: 20px;
+  }
+  .info-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+    align-items: top;
+  }
+  .especificacions {
+    grid-column: 3;
+  }
+
+  .descripcio {
+    color: #1a0d00;
+    grid-column: 1 / 3;
+    text-align: justify;
+  }
+
+
+  .violin-image {
+    width: 100%;
+    height: 300px;
+    object-fit: contain;
+    margin: 20px 0;
+  }
+
+  .violin-info {
+    padding: 20px;
+  }
+
+
+  h2 {
+    color: #412202;
+    font-size: 1.5rem;
+    text-align: center;
+  }
+
+  .fabricacio {
+    color: #412202;
+  }
+
+
+  @media (max-width: 480px) {
+    .violin-image {
+      height: 200px;
+    }
+
+    .violin-info {
+      padding: 1rem;
+    }
+
+    h2 {
+      font-size: 1.25rem;
+    }
+  }
+</style>

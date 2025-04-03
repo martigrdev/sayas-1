@@ -1,0 +1,105 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+import Violi from "../components/Violi.astro";
+
+const violins = [
+  {
+    nom: "Violí 1",
+    fabricacio: "1920",
+    descripcio:
+      "Aquest es un violí molt bonic. Fabricat l'any 2010 , tot i no ser un clàssic, ofereix una de les millor qualitats de so que es pot trobar en el mercat.",
+    imatge: "/Sayas_Fin/media/images/violin-1.png",
+    estat: "En restauració",
+  },
+  {
+    nom: "Violí 2",
+    fabricacio: "1894",
+    descripcio:
+      "Aquest es un violí molt bonic. Aquest es un violí molt bonic. Aquest es un violí molt bonic.",
+    imatge: "/Sayas_Fin/media/images/violin-2.png",
+    estat: "Restaurat",
+  },
+  {
+    nom: "Violí 3",
+    fabricacio: "1789",
+    descripcio:
+      "Aquest es un violí molt bonic. Fabricat l'any 2010 , tot i no ser un clàssic, ofereix una de les millor qualitats de so que es pot trobar en el mercat.",
+    imatge: "/Sayas_Fin/media/images/violin-3.png",
+    estat: "Restaurat",
+  },
+  {
+    nom: "Violí 4",
+    fabricacio: "1972",
+    descripcio:
+      "Aquest es un violí molt bonic. Aquest es un violí molt bonic. Aquest es un violí molt bonic.",
+    imatge: "/Sayas_Fin/media/images/violin-6.png",
+    estat: "Restaurat",
+  },
+  {
+    nom: "Violí 5",
+    fabricacio: "1672",
+    descripcio:
+      "Aquest es un violí molt bonic. Fabricat l'any 2010 , tot i no ser un clàssic, ofereix una de les millor qualitats de so que es pot trobar en el mercat.",
+    imatge: "/Sayas_Fin/media/images/violin-1.png",
+    estat: "Restaurat",
+  },
+  {
+    nom: "Violí 6",
+    fabricacio: "1871",
+    descripcio:
+      "Aquest es un violí molt bonic. Aquest es un violí molt bonic. Aquest es un violí molt bonic.",
+    imatge: "/Sayas_Fin/media/images/violin-3.png",
+    estat: "Restaurat",
+  },
+];
+---
+
+<MainLayout>
+  <main class="main-violins">
+    <div class="violin-grid">
+      {
+        violins.map((violin) => (
+          <Violi
+            nom={violin.nom}
+            fabricacio={violin.fabricacio}
+            descripcio={violin.descripcio}
+            imatge={violin.imatge}
+            estat={violin.estat}
+          />
+        ))
+      }
+    </div>
+  </main>
+</MainLayout>
+
+<style>
+  main.main-violins {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    background-color: #a87c4f;
+    padding: 40px 15%;
+  }
+
+  .violin-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+  }
+
+  @media (max-width: 768px) {
+    main.main-violins {
+      padding: 40px 5%;
+    }
+
+    .violin-grid {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+  }
+</style>

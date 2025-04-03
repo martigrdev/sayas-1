@@ -1,0 +1,111 @@
+---
+const pathname = new URL(Astro.request.url).pathname;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sayas</title>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <div class="nav-item ni-1">
+          <a href="/Sayas_Fin/">Inici</a>
+        </div>
+        <div class="nav-item na-2">
+          <a href="/Sayas_Fin/violins">Violins</a>
+        </div>
+        <div class="nav-item na-3">
+          <a href="/Sayas_Fin/about">Qui som?</a>
+        </div>
+        <div class="nav-item na-4">
+          <a href="/Sayas_Fin/contacte">Contacte</a>
+        </div>
+      </nav>
+    </header>
+    <slot />
+    <footer>
+      <span>Lluís Sayas &copy; 2025</span>
+    </footer>
+  </body>
+</html>
+
+<style>
+  html {
+    box-sizing: border-box;
+  }
+  body {
+    font-family: Georgia, serif;
+    margin: 0;
+    padding: 0;
+  }
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  nav .nav-item {
+    margin: 30px 10px;
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: transform 0.2s ease;
+  }
+  nav .nav-item.ni-1 {
+    background-color: #cdb49a;
+  }
+  nav .nav-item.na-2 {
+    background-color: #a87c4f;
+  }
+  nav .nav-item.na-3 {
+    background-color: #834504;
+  }
+  nav .nav-item.na-4 {
+    background-color: #683703;
+  }
+  .nav-item a {
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+  }
+  .nav-item a:hover {
+    color: #1a0d00;
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    color: #412202;
+  }
+  footer {
+    height: 60px;
+    background-color: #412202;
+    color: white;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  /*  Resolució mòbil */
+  @media (max-width: 768px) {
+    body {
+      font-size: 0.8rem;
+    }
+    nav .nav-item {
+      height: 80px;
+      width: 80px;
+      margin: 30px 5px;
+    }
+    .nav-item a {
+      font-size: 14px;
+    }
+  }
+</style>

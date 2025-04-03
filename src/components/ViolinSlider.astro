@@ -1,0 +1,288 @@
+---
+const images = [
+  "/sayas-1/media/images/violin-1.png",
+  "/sayas-1/media/images/violin-2.png",
+  "/sayas-1/media/images/violin-3.png",
+  "/sayas-1/media/images/violin-6.png",
+];
+---
+
+<article class="violin-slider-art">
+  <h2>Últims Projectes</h2>
+  <div class="violin-slider" role="region" aria-label="Violin images carousel">
+    <button
+      class="slider-button prev"
+      id="prevButton"
+      aria-label="Previous slide"
+    >
+      &#8249;
+    </button>
+    <div class="slider-container">
+      {
+        images.map((image, index) => (
+          <img
+            src={image}
+            alt={`Violin ${index + 1}`}
+            class={`slide ${index === 0 ? "active" : ""}`}
+            data-index={index}
+            loading="lazy"
+            onError={(e) => { e.currentTarget.style.display = "none"; }}
+          />
+        ))
+      }
+    </div>
+    <button class="slider-button next" id="nextButton" aria-label="Next slide">
+      &#8250;
+    </button>
+    <div class="slider-dots" role="tablist" aria-label="Slide navigation">
+      {
+        images.map((_, index) => (
+          <button
+            class={`dot ${index === 0 ? "active" : ""}`}
+            data-index={index}
+            role="tab"
+            aria-selected={index === 0}
+            aria-label={`Go to slide ${index + 1}`}
+          />
+        ))
+      }
+    </div>
+  </div>
+</article>
+
+<script>
+  let currentSlide = 0;
+  const slides = document.querySelectorAll(".slide");
+  const dots = document.querySelectorAll(".dot");
+  const prevButton = document.getElementById("prevButton");
+  const nextButton = document.getElementById("nextButton");
+  const slider = document.querySelector(".violin-slider");
+  let autoAdvanceInterval;
+  let touchStartX = 0;
+  let touchEndX = 0;
+
+  function updateSlides() {
+    slides.forEach((slide, index) => {
+      slide.classList.toggle("active", index === currentSlide);
+      slide.setAttribute("aria-hidden", index !== currentSlide);
+    });
+    dots.forEach((dot, index) => {
+      dot.classList.toggle("active", index === currentSlide);
+      dot.setAttribute("aria-selected", index === currentSlide);
+    });
+  }
+
+  function goToSlide(index) {
+    if (index >= 0 && index < slides.length) {
+      currentSlide = index;
+      updateSlides();
+      resetAutoAdvance();
+    }
+  }
+
+  function nextSlide() {
+    currentSlide = (currentSlide + 1) % slides.length;
+    updateSlides();
+  }
+
+  function prevSlide() {
+    currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+    updateSlides();
+  }
+
+  function resetAutoAdvance() {
+    if (autoAdvanceInterval) {
+      clearInterval(autoAdvanceInterval);
+    }
+    if (!slider.matches(":hover")) {
+      autoAdvanceInterval = setInterval(nextSlide, 5000);
+    }
+  }
+
+  function handleKeyPress(e) {
+    if (e.key === "ArrowLeft") {
+      prevSlide();
+      resetAutoAdvance();
+    } else if (e.key === "ArrowRight") {
+      nextSlide();
+      resetAutoAdvance();
+    }
+  }
+
+  function handleTouchStart(e) {
+    touchStartX = e.touches[0].clientX;
+  }
+
+  function handleTouchEnd(e) {
+    touchEndX = e.changedTouches[0].clientX;
+    const diff = touchStartX - touchEndX;
+    if (Math.abs(diff) > 50) {
+      if (diff > 0) {
+        nextSlide();
+      } else {
+        prevSlide();
+      }
+      resetAutoAdvance();
+    }
+  }
+
+  // Initialize auto-advance
+  resetAutoAdvance();
+
+  // Event listeners
+  prevButton.addEventListener("click", () => {
+    prevSlide();
+    resetAutoAdvance();
+  });
+
+  nextButton.addEventListener("click", () => {
+    nextSlide();
+    resetAutoAdvance();
+  });
+
+  dots.forEach((dot, index) => {
+    dot.addEventListener("click", () => goToSlide(index));
+  });
+
+  document.addEventListener("keydown", handleKeyPress);
+  slider.addEventListener("touchstart", handleTouchStart);
+  slider.addEventListener("touchend", handleTouchEnd);
+
+  // Pause auto-advance on hover
+  slider.addEventListener("mouseenter", () => {
+    clearInterval(autoAdvanceInterval);
+  });
+
+  slider.addEventListener("mouseleave", resetAutoAdvance);
+
+  // Cleanup event listeners when component is destroyed
+  document.addEventListener("astro:before-swap", () => {
+    clearInterval(autoAdvanceInterval);
+    document.removeEventListener("keydown", handleKeyPress);
+    slider.removeEventListener("touchstart", handleTouchStart);
+    slider.removeEventListener("touchend", handleTouchEnd);
+    slider.removeEventListener("mouseenter", () => {
+      clearInterval(autoAdvanceInterval);
+    });
+    slider.removeEventListener("mouseleave", resetAutoAdvance);
+  });
+</script>
+
+<style>
+  .violin-slider-art {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    background-color: #cdb49a;
+    border-radius: 20px;
+  }
+  .violin-slider-art h1,
+  h2,
+  h3 {
+    color: #412202;
+  }
+
+  .violin-slider {
+    position: relative;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    overflow: hidden;
+  }
+
+  .slider-container {
+    position: relative;
+    width: 100%;
+    padding-top: 56.25%;
+  }
+
+  .slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+    object-fit: contain;
+    will-change: opacity;
+  }
+
+  .slide.active {
+    opacity: 1;
+  }
+
+  .slider-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: white;
+    color: #cdb49a;
+    border: none;
+    padding: 1rem;
+    cursor: pointer;
+    font-size: 2rem;
+    z-index: 1;
+    border-radius: 50%;
+    width: 3rem;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .slider-button:hover,
+  .slider-button:focus {
+    color: #683703;
+  }
+
+  .prev {
+    left: 1rem;
+  }
+
+  .next {
+    right: 1rem;
+  }
+
+  .slider-dots {
+    position: absolute;
+    bottom: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .dot {
+    width: 0.75rem;
+    height: 0.75rem;
+    border-radius: 50%;
+    background-color: rgba(205, 180, 154, 0.7);
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    transition: background-color 0.3s ease;
+  }
+
+  .dot:hover,
+  .dot:focus {
+    background-color: rgba(168, 124, 79, 0.9);
+    outline: none;
+  }
+
+  .dot.active {
+    background-color: #683703;
+  }
+
+  @media (max-width: 480px) {
+    .slider-button {
+      padding: 0.75rem;
+      font-size: 1.25rem;
+      width: 2.5rem;
+      height: 2.5rem;
+    }
+  }
+</style>

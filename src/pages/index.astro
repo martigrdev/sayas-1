@@ -1,0 +1,30 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import ViolinSlider from '../components/ViolinSlider.astro';
+import Intro from '../components/Intro.astro';
+---
+
+<MainLayout>
+	<main class="main-index">
+		<Intro />
+		<ViolinSlider />
+	</main>
+</MainLayout>
+
+<style>
+	main.main-index {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		margin: auto;
+		background-color: #cdb49a;
+		padding: 40px 15%;
+
+	}
+	@media (max-width: 768px) {
+		main.main-index {
+			padding: 40px 5%;
+		}
+	}
+</style>
